@@ -13,3 +13,13 @@ Environment               development
 Database adapter          mysql2
 Database schema version   0
 ```
+
+## gitbookの使い方
+
+プロジェクトの仕様や設計をまとめる。
+
+```
+$ gitbook init # 作成
+$ gitbook serve # レビュー
+$ gitbook build # ジェネレータ
+```
