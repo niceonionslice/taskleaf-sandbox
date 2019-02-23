@@ -23,3 +23,9 @@ $ gitbook init # 作成
 $ gitbook serve # レビュー
 $ gitbook build # ジェネレータ
 ```
+
+## elb -> slimに変換
+
+```
+$ bundle exec erb2slim ./app/views/layouts/ --delete
+```
