@@ -29,3 +29,12 @@ $ gitbook build # ジェネレータ
 ```
 $ bundle exec erb2slim ./app/views/layouts/ --delete
 ```
+
+## locales
+
+とりあえず、英語と日本語を以下よりDLする。
+
+```
+$ wget https://raw.githubusercontent.com/svenfuchs/rails-i18n/master/rails/locale/en.yml -P config/locales/
+$ wget https://raw.githubusercontent.com/svenfuchs/rails-i18n/master/rails/locale/ja.yml -P config/locales/
+```
