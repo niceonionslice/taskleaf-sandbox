@@ -6,7 +6,7 @@
 - データベースのテーブル名はモデルのクラス名を複数形にしたもの
 - モデルのクラス名はキャメルケース、テーブル名はスネークケース
 
- ## タスクモデル
+ ## taskモデル
 
 `id`,`created_at`,`updated_at`はRailsが自動で付与してくれる
 
@@ -20,7 +20,7 @@
 $ bin/rails generate model Task name:string description:text
 ```
 
-## コントローラとビュー
+## Tasksコントローラとビュー
 
 |URLの例|HTTPメソッド|アクション名|機能名|役割
 |-|-|-|-|-
