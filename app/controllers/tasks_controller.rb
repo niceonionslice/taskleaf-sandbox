@@ -17,6 +17,7 @@ class TasksController < ApplicationController
 
   # 編集
   def edit
+    @task = Task.find_by(id: params[:id])
   end
 
   # 登録処理
