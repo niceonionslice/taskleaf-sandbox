@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
   # 編集
   def edit
-
+    @task = Task.find_by(id: params[:id])
   end
 
   # 登録処理
@@ -26,6 +26,12 @@ class TasksController < ApplicationController
     task = Task.new(task_params)
     task.save! # セーブに失敗したらエラーを返す
     redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました。"
+  end
+
+  def update
+    task = Task.find_by(id: params[:id])
+    task.update!(task_params)
+    redirect_to tasks_url, notice: "タスク「#{task.name}」を更新しました。"
   end
 
   private
