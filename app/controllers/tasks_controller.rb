@@ -28,6 +28,7 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました。"
   end
 
+  # 更新機能
   def update
     task = Task.find_by(id: params[:id])
     task.update!(task_params)
