@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_122045) do
+ActiveRecord::Schema.define(version: 2019_03_13_143532) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "タスクを管理するためのテーブル", force: :cascade do |t|
     t.string "name", null: false, comment: "タスクの名称"
     t.text "description", comment: "タスクの詳しい詳細"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
