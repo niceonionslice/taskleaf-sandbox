@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
     if @user.save
       redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を登録しました"
     else
-      render new
+      render :new
     end
   end
 
@@ -28,7 +28,7 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_users_path(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
     else
-      render new
+      render :new
     end
   end
 
