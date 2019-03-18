@@ -58,6 +58,7 @@ group :development do
 end
 
 group :test do
+  gem 'spring-commands-rspec', '~> 1.0', '>= 1.0.4'
   gem 'capybara', '~> 3.14'
   gem 'selenium-webdriver', '~> 3.141'
   gem 'chromedriver-helper', '~> 2.1'
