@@ -1,13 +1,13 @@
 - if !task.nil? && task.errors.present?
-  ul#error_explanation
+  ul#error_explanation.alert.alert-danger
     - task.errors.full_messages.each do |message|
       li= message
 
 = form_with model: task, local: true do |f|
   .form-group
     = f.label :name
-    = f.text_area :name, class: 'form-control', id: 'task_name'
+    = f.text_area :name, class: 'form-control', id: 'task-name'
   .form-group
     = f.label :description
-    = f.text_area :description, rows: 7, class: 'form-control', id: 'task_description'
+    = f.text_area :description, rows: 7, class: 'form-control', id: 'task-description'
   = f.submit nil, class: 'btn btn-primary'
