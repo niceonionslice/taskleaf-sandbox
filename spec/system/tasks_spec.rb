@@ -1,88 +1,33 @@
 require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
-  let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com') }
-  let(:user_b) { FactoryBot.create(:user, name: 'ユーザーB', email: 'b@example.com') }
-  # let!で定義しているのはUserアカウントを確実に作成しておく必要があったからです。
-  let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user: user_a) }
-
-  before do
-    visit login_path
-    fill_in 'session-email', with: login_user.email # idを指定する
-    fill_in 'session-password', with: login_user.password  # idを指定する
-    click_button 'ログインする'
-  end
-
-  # itの確認内容をit間でシェアすることができる。
-  # shared_examples, shared_contextは共通化される便利なメソッドですが、上手に利用しないと可読性を下げることになる。
-  shared_examples_for 'ユーザーAが作成したタスクが表示される' do
-    it { expect(page).to have_content '最初のタスク' }
-  end
-
-
-  describe '一覧表示機能' do
-    context 'ユーザーAがログインしているとき' do
-      let(:login_user) { user_a }
-
-      # it "ユーザーAが作成したタスクが表示される" do
-      #   expect(page).to have_content '最初のタスク'
-      # end
-      it_behaves_like 'ユーザーAが作成したタスクが表示される'
-    end
-
-    context 'ユーザーBがログインしているとき' do
-      let(:login_user) { user_b }
-
-      it "ユーザーAが作成したタスクが表示されない" do
-        expect(page).to have_no_content '最初のタスク'
-        expect(page).not_to have_content '最初のタスク' # この書き方でもOK
-      end
-    end
-  end
-
-  describe '詳細表示機能' do
-    context 'ユーザーAがログインしているとき' do
-      let(:login_user) { user_a }
-
-      before do
-        # 詳細画面へ遷移
-        visit task_path(task_a)
-      end
-
-      # it "ユーザーAが作成したタスクが表示される" do
-      #   expect(page).to have_content '最初のタスク'
-      # end
-      it_behaves_like 'ユーザーAが作成したタスクが表示される'
-    end
-  end
-
-  describe '新規作成機能' do
-    let(:login_user) { user_a }
-
+  describe '1️⃣ 一覧表示機能' do
     before do
-      visit new_task_path
-      fill_in 'task-name', with: task_name
-      click_button '登録する'
+      # # 1️⃣ ユーザーAを作成しておく
+      # user_a = FactoryBot.create(:user)
+      # # 2️⃣ 作成者がユーザーAであるタスクを作成しておく
+      # task_a = FactoryBot.create(:task, user: user_a)
     end
 
-    context '新規作成画面で名称を入力したとき' do
-      let(:task_name) { '新規作成のテストを書く' } # タスク名称
-
-      it "正常に登録されること" do
-        # have_selectorと使うと、HTML内の特定の要素をセレクタ（CSSセレクタ）で指定することができます。
-        # ↓ class="alert-success"を検索してテキストに「新規作成のテストを書く」を含む要素を探している
-        expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
+    context '2️⃣ ユーザーAがログインしていること' do
+      before do
+        # 2️⃣ 作成者がユーザーAであるタスクを作成しておく
+        task_a = FactoryBot.create(:task)
+        # ユーザーAがログインしていること
+        visit login_path
+        fill_in 'session-email', with: task_a.user.email
+        fill_in 'session-password', with: task_a.user.password
+        click_button 'ログインする'
       end
-    end
 
-    context '新規作成画面で名称を入力しなかったとき' do
-      let(:task_name) { '' }
+      it '3️⃣  ユーザーAが作成したタスクが表示されていること' do
+        # 作成済みのタスクの名称が画面上に表示されていることを確認する
+        expect(page).to have_content 'タスク一覧'
+        expect(page).to_not have_content 'ユーザー一覧'
+        expect(page).to have_content 'ログアウト'
+        expect(page).to have_content 'タスク表示'
 
-      it "エラーとなる" do
-        # withinはブロックの中でpageの内容を検査することで、探索する範囲を画面内の特定の範囲に狭めることができる。
-        within '#error_explanation' do
-          expect(page).to have_content '名称を入力してください'
-        end
+        expect(page).to have_content 'タスクなんだよ'
       end
     end
   end
