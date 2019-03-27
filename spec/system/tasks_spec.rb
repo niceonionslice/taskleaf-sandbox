@@ -1,35 +1,61 @@
 require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
-  describe '1️⃣ 一覧表示機能' do
+
+  describe '一覧表示画面' do
+
     before do
-      # # 1️⃣ ユーザーAを作成しておく
-      # user_a = FactoryBot.create(:user)
-      # # 2️⃣ 作成者がユーザーAであるタスクを作成しておく
-      # task_a = FactoryBot.create(:task, user: user_a)
+      # ユーザーAを作成します。
+      user_a = FactoryBot.create(:user)
+      # 作成者がユーザーAであるタスクを作成しておく
+      task_a = FactoryBot.create(:task, user: user_a)
     end
 
-    context '2️⃣ ユーザーAがログインしていること' do
+    context 'ユーザーAがログインしているとき' do
       before do
-        # 2️⃣ 作成者がユーザーAであるタスクを作成しておく
-        task_a = FactoryBot.create(:task)
-        # ユーザーAがログインしていること
+        # ユーザーAがログインする
         visit login_path
-        fill_in 'session-email', with: task_a.user.email
-        fill_in 'session-password', with: task_a.user.password
+        fill_in 'session-email', with: 'exsample@email.com'
+        fill_in 'session-password', with: 'password'
         click_button 'ログインする'
       end
 
-      it '3️⃣  ユーザーAが作成したタスクが表示されていること' do
-        # 作成済みのタスクの名称が画面上に表示されていることを確認する
+      it 'ユーザーAが作成したタスクが表示されるとき' do
+        # 作成済みのタスクの名称が画面上に表示されていることを確認
         expect(page).to have_content 'タスク一覧'
         expect(page).to_not have_content 'ユーザー一覧'
-        expect(page).to have_content 'ログアウト'
-        expect(page).to have_content 'タスク表示'
-
+        expect(page).to have_no_content 'ユーザー一覧'
         expect(page).to have_content 'タスクなんだよ'
       end
     end
+
+    context 'ユーザーBがログインしているとき' do
+      before do
+        # ユーザーBを作成します。
+        user_b = FactoryBot.create(:user, name: 'i_am_user_b', email: 'exsample_b@email.com')
+        # 作成者がユーザーBであるタスクを作成しておく
+        task_b = FactoryBot.create(:task, name: 'i have you can do it.', user: user_b)
+        # ユーザーAがログインする
+        visit login_path
+        fill_in 'session-email', with: 'exsample_b@email.com'
+        fill_in 'session-password', with: 'password'
+        click_button 'ログインする'
+      end
+
+      it 'ユーザーAが作成したタスクが見えないこと' do
+        # ユーザーAが作成したタスクの名称が画面上に表示されていないことを確認
+        expect(page).to have_content 'タスク一覧'
+        expect(page).to_not have_content 'ユーザー一覧'
+        expect(page).to have_no_content 'ユーザー一覧'
+        expect(page).to have_content 'i have you can do it.'
+      end
+    end
+  end
+
+  describe '詳細画面' do
+  end
+
+  describe '新規登録画面' do
   end
 
 end
