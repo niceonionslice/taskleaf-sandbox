@@ -1,12 +1,24 @@
 // window.onload = function() {
-document.addEventListener('turbolinks:load', function() {
-  document.querySelectorAll('td').forEach(function(td){
-    td.addEventListener('mouseover', function(e) {
+document.addEventListener('turbolinks:load', () => {
+  document.querySelectorAll('td').forEach((td) => {
+    td.addEventListener('mouseover', (e) => {
       e.currentTarget.style.backgroundColor = '#eff';
     });
 
-    td.addEventListener('mouseout', function(e){
+    td.addEventListener('mouseout', (e) => {
       e.currentTarget.style.backgroundColor = '';
+    });
+  });
+
+  document.querySelectorAll('.delete').forEach((a) => {
+    a.addEventListener('ajax:success', () => {
+      // // 指定されたノードの DOM ツリー内の親ノードを返します。
+      // const td = a.parentNode;
+      // // 指定されたノードの DOM ツリー内の親ノードを返します。
+      // const tr = td.parentNode;
+      // //
+      // tr.classList.add("displaynone")
+      a.parentNode.parentNode.style.display = 'none';
     });
   });
 });

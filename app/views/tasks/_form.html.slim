@@ -3,6 +3,7 @@
     - task.errors.full_messages.each do |message|
       li= message
 
+/ local: trueを指定する理由はform_withはdefaultでAjaxを利用するのを無効にするため。
 = form_with model: task, local: true do |f|
   .form-group
     = f.label :name
@@ -11,3 +12,4 @@
     = f.label :description
     = f.text_area :description, rows: 7, class: 'form-control', id: 'task-description'
   = f.submit nil, class: 'btn btn-primary'
+p(style="color:red") すみません。絵文字は利用できません。
