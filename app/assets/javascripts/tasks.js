@@ -19,8 +19,17 @@ document.addEventListener('turbolinks:load', () => {
       // //
       // tr.classList.add("displaynone")
       a.parentNode.parentNode.style.display = 'none';
+      // タスクの名前を取得
+      deleteMessage(a.parentNode.parentNode.children[0].innerText);
     });
   });
+
+  deleteMessage = (s) => {
+    const message = document.createElement('p');
+    message.innerText = "タスク「"+s+"」を削除しました。";
+    message.style.color = 'rgb(237,70,145)';
+    document.querySelector('table').insertAdjacentElement('beforebegin', message);
+  };
 });
 
 // 最終的にはapplication.jsにまとめることになる。が開発環境ではまだまとめていない。
