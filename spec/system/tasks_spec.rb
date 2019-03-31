@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
+
+  # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+  # テストに必要な情報を作成
+
   # ユーザーAとBを作成します。
   let(:user_a) { FactoryBot.create(:user) }
   let(:user_b) { FactoryBot.create(:user, name: 'user_b', email: 'b@email.com', admin: 1) }
@@ -12,6 +16,7 @@ describe 'タスク管理機能', type: :system do
   # 作成者がユーザーBであるタスクを作成しておく
   let!(:user_b_task_a) { FactoryBot.create(:task, name: 'あかあかあかあかあか', description: 'ぞろぞろぞろぞろ', user: user_b) }
   let!(:user_b_task_b) { FactoryBot.create(:task, name: 'あおあおあおあおあお', user: user_b) }
+  # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
   # 事前にログインしておく。
   before do
@@ -79,12 +84,37 @@ describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'あかあかあかあかあか'
         expect(page).to have_content 'ぞろぞろぞろぞろ'
       end
-
     end
-
   end
 
   describe '新規登録画面' do
+    # ログインユーザーをここで定義する。
+    let(:login_user) {user_a}
+
+    before do
+      visit new_task_path
+      fill_in 'task-name', with: task_name
+      click_button '登録する'
+    end
+
+    context '新規作成画面で名称を入力するとき' do
+      # beforeで利用するtask_nameをここで定義
+      let(:task_name) { 'タスクを登録する' }
+
+      it '正常に登録されること' do
+        expect(page).to have_selector '.alert-success', text: 'タスクを登録'
+      end
+    end
+
+    context '新規作成画面で名称を入力しなかったとき' do
+      let(:task_name) { '' }
+      it 'エラーとなる' do
+        within '#error_explanation' do # 特定の範囲にある要素を探すように範囲を特定する時にはこんな書き方をする。
+          expect(page).to have_content '名称を入力してください'
+        end
+      end
+    end
+
   end
 
 end
