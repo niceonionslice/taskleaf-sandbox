@@ -3,7 +3,9 @@ class TasksController < ApplicationController
 
   # 一覧表示
   def index
-    @tasks = current_user.tasks
+    # @tasks = current_user.tasks
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
 
   # 詳細
