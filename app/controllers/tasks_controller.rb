@@ -6,6 +6,8 @@ class TasksController < ApplicationController
     # @tasks = current_user.tasks
     @q = current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).page(params[:page])
+    # kaminariの表示件数のdefaultを変更するときはpreメソッドを利用するといい。
+    # @tasks = @q.result(distinct: true).page(params[:page]).per(50)
   end
 
   # 詳細
