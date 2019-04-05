@@ -1,4 +1,9 @@
 class Task < ApplicationRecord
+  # Action Storageを利用する準備ができたので、画像ファイルを添付できるようにします。
+  # 1つのタスクに1つの画像が紐づけます。また画像は:imageで呼ぶことができるようになります。
+  has_one_attached :image
+
+
   belongs_to :user
   # before_validation :set_nameless_name
   validates :name, presence: true, length: { maximum: 30 }

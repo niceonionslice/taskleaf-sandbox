@@ -7,3 +7,7 @@ ul
   li
     | 詳しい説明:
     = simple_format(@task.description)
+  - if @task.image.attached?
+    li
+      | 画像
+      = image_tag @task.image

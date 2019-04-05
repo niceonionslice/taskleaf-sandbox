@@ -1,5 +1,5 @@
 class TaskMailer < ApplicationMailer
-  default from: 'yamashiro.koo@gmail.com'
+  default from: '"やましろ" <yamashiro.koo@gmail.com>'
 
   def creation_email(task)
     @task = task
