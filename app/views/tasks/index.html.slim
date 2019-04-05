@@ -18,6 +18,10 @@ h1 タスク表示
 
 
 .mb-3
+  = paginate @tasks
+  = page_entries_info @tasks
+
+
 table.table.table-hover
   thead.thead-default
     tr
