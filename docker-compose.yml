@@ -5,6 +5,8 @@ services:
     image: busybox
     volumes:
       - mysql2-data:/var/log/mysql
+      - redis-data:/data
+
   db:
     build: ./docker/mysql
     image: mysql:5.7
@@ -20,6 +22,16 @@ services:
       - ./docker/mysql/conf.d:/mysql/conf.d
       - datastore
 
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - datastore
+    command: redis-server
+
 volumes:
   mysql2-data:
+    driver: local
+  redis-data:
     driver: local
