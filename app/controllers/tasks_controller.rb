@@ -33,6 +33,7 @@ class TasksController < ApplicationController
     # @task = current_user.tasks.new(task_params)
     # @task.save! # セーブに失敗したらエラーを返す
     if @task.save
+      TaskMailer.creation_email(@task).deliver_now
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       # エラーの場合は、再度NEWのフォーム画面を表示
