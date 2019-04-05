@@ -36,6 +36,7 @@ class TasksController < ApplicationController
     # @task.save! # セーブに失敗したらエラーを返す
     if @task.save
       TaskMailer.creation_email(@task).deliver_now
+      SampleJob.perform_later(@task, "ここは非同期でいくぞー")
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       # エラーの場合は、再度NEWのフォーム画面を表示

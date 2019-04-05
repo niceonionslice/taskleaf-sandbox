@@ -52,3 +52,10 @@ $ mailcatcher
 Content-typeはmultipart/alternativeで送信する
 htmlメールのみ送信すると携帯メールなどで表示できないユーザーもいるしスパム扱いされやすくなります。multipart/alternativeは本文にhtmlとtextを両方含み、htmlで表示できない場合にはtextで表示します。
 Railsではmailerにhogehogeというメソッドがあったら、viewにhogehoge.html.erb、hogehoge.text.erbと２つ作れば自動的にmultipart/alternativeにしてくれます。
+
+
+## 非同期ジョブ実行について
+sidekiqを利用して非同期ジョブを利用します。
+```
+$ bundle run sidekiq
+```
