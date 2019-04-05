@@ -48,3 +48,7 @@ $ gem install mailcatcher
 # サーバー立ち上げ
 $ mailcatcher
 ```
+
+Content-typeはmultipart/alternativeで送信する
+htmlメールのみ送信すると携帯メールなどで表示できないユーザーもいるしスパム扱いされやすくなります。multipart/alternativeは本文にhtmlとtextを両方含み、htmlで表示できない場合にはtextで表示します。
+Railsではmailerにhogehogeというメソッドがあったら、viewにhogehoge.html.erb、hogehoge.text.erbと２つ作れば自動的にmultipart/alternativeにしてくれます。
