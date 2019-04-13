@@ -17,7 +17,7 @@ default: &default
   password: <%= ENV['PRIVATE_PROJECT_PASSWORD'] %>
   host: 127.0.0.1
   port: 13306
-  
+
 development:
   <<: *default
   database: taskleaf-sandbox_development
@@ -51,5 +51,5 @@ test:
 production:
   <<: *default
   database: taskleaf-sandbox_production
-  username: taskleaf-sandbox
-  password: <%= ENV['TASKLEAF-SANDBOX_DATABASE_PASSWORD'] %>
+  # username: taskleaf-sandbox
+  # password: <%= ENV['TASKLEAF-SANDBOX_DATABASE_PASSWORD'] %>
