@@ -18,7 +18,7 @@ table.table.table-hover
       td= raw Rinku.auto_link(simple_format(h(@task.description)), :all, 'target="_blank"')
     tr
       th= Task.human_attribute_name(:image)
-      td= image_tag @task.image if @task.image.attached?
+      td= image_tag @task.image, :width => "600" if @task.image.attached?
     tr
       th= Task.human_attribute_name(:created_at)
       td= @task.created_at
