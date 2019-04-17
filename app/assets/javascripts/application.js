@@ -14,3 +14,27 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+// セキュリティーの観点から別タブで開くときには全てこれを設定する。
+document.addEventListener('turbolinks:load', () => {
+  const aElementList = document.querySelectorAll('a')
+  aElementList.forEach((element) => {
+    console.log("呼ばれたーよー")
+
+    // a タグにtarget属性が存在しなかったらreturn
+    if (element.hasAttribute('target') === false) {
+      // console.log("なかったー")
+      return;
+    }
+
+    // target属性_blankではなかったらreturn
+    if (element.getAttribute('target') !== '_blank') {
+      // console.log("あったけど、ちがったー")
+      return;
+    }
+
+    // rel属性にnoopenerを付与する
+    element.setAttribute('rel', 'noopener');
+    console.log('あったーったー')
+  });
+});
