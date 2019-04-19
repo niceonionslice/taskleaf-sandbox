@@ -37,4 +37,18 @@ document.addEventListener('turbolinks:load', () => {
     element.setAttribute('rel', 'noopener');
     console.log('あったーったー')
   });
+
+  // オフライン時にオフラインをお知らせするロジック
+  isOffline();
 });
+
+const isOffline = () => {
+  const isOnline = navigator.onLine;
+  const offlineElementList = document.querySelector('.offline')
+  if(isOnline === true) {
+    offlineElementList.style.display = 'none';
+  } else {
+    offlineElementList.style.display = 'block';
+  }
+  return;
+}
